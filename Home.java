@@ -30,16 +30,18 @@ public class Home extends AppCompatActivity {
     private DatabaseReference dbreference1;
     private String userId;
     private String username;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
+        
         dbreference1 = FirebaseDatabase.getInstance().getReference();
         Intent in = getIntent();
+        
         userId = in.getStringExtra("UserId");
         username = in.getStringExtra("Username");
-       // Toast.makeText(Home.this,username,Toast.LENGTH_LONG).show();
-        // Setup the viewPager
+        
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         if (viewPager != null)
@@ -60,7 +62,6 @@ public class Home extends AppCompatActivity {
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
-
         public final int PAGE_COUNT = 3;
 
         private final String[] mTabsTitle = {"Home", "Groups", "Player"};
@@ -72,8 +73,6 @@ public class Home extends AppCompatActivity {
         public View getTabView(int position) {
             // Given you have a custom layout in `res/layout/custom_tab.xml` with a TextView and ImageView
             View view = LayoutInflater.from(Home.this).inflate(R.layout.custom_tab, null);
-//            TextView title = (TextView) view.findViewById(R.id.title);
-//            title.setText(mTabsTitle[position]);
             ImageView icon = (ImageView) view.findViewById(R.id.icon);
             icon.setImageResource(mTabsIcons[position]);
             return view;
@@ -82,10 +81,8 @@ public class Home extends AppCompatActivity {
         @Override
         public Fragment getItem(int pos) {
             switch (pos) {
-
                 case 0:
                     return FirstFragment.newInstance(1);
-
                 case 1:
                     return SecondFragment.newInstance(2);
                 case 2:
@@ -104,12 +101,15 @@ public class Home extends AppCompatActivity {
             return mTabsTitle[position];
         }
     }
+    
     public String getUserId() {
         return userId;
     }
+    
     public String getUsername() {
         return username;
     }
+    
     /*public void passData(String data) {
         ThirdFragment thirdFragment = new ThirdFragment ();
         Bundle args = new Bundle();
